@@ -17,9 +17,15 @@ engine = create_engine(DATABASE_URL) #communicate with the database PostgreSQL
 class Base(DeclarativeBase): #define a base class for declarative models in SQLAlchemy
     pass
 
-SessionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine
+SessionLocal = sessionmaker( #define a session factory for creating database sessions
+    autocommit=False, #disable automatic commit
+    autoflush=False, #disable automatic flush
+    bind=engine #bind the session factory to the database engine
 )
 
-#with engine.connect() as connection: #establish a connection to the database using the engine object
-#    print("Database connection successful!") #print a message indicating that the database connection was successful  
+def get_db(): #define a function to get a database session for interacting with the database
+    db = SessionLocal() #create a new database session using the SessionLocal factory
+    try:
+        yield db #yield the database session to be used in the route handlers
+    finally:
+        db.close() #close the database session after the request is completed

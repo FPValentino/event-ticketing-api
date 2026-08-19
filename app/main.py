@@ -1,5 +1,6 @@
 from fastapi import FastAPI #imports FastAPI class from the fastapi module
 from app.auth.routes import router as auth_router #imports the router object from the app.auth.routes module and renames it to auth_router
+from app.events.routes import router as events_router #imports the router object from the app.events.routes module and renames it to events_router
 
 app = FastAPI() #creates an instance (object) of the FastAPI class and assigns it to the variable 'app'
 
@@ -8,3 +9,4 @@ def root():
     return {"message": "Event Ticketing API"}
 
 app.include_router(auth_router) #includes the auth_router in the main FastAPI application, allowing the authentication routes to be accessible under the "/auth" prefix
+app.include_router(events_router) #includes the events_router in the main FastAPI application, allowing the event-related routes to be accessible under the "/events" prefix

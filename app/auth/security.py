@@ -74,3 +74,11 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         )
 
     return user #return the user object if the token is valid and the user is found in the database
+
+def require_admin(current_user: User = Depends(get_current_user)): #define a function to require admin privileges for certain routes, which takes the current user as a parameter
+    if current_user.role != "admin": #check if the current user's role is not "admin"
+        raise HTTPException( #raise an HTTPException with a 403 status code and a message indicating that the user does not have admin privileges
+            status_code=403,
+            detail="Admin privileges required"
+        )
+    return current_user #return the current user object if they have admin privileges

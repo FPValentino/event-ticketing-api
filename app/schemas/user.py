@@ -1,4 +1,4 @@
-from pydantic import BaseModel #importing BaseModel from pydantic library
+from pydantic import BaseModel, ConfigDict #importing BaseModel and ConfigDict from pydantic library
 from datetime import datetime #importing datetime class from datetime module
 
 class UserCreate(BaseModel): #defining a class UserCreate that inherits from BaseModel
@@ -12,3 +12,5 @@ class UserResponse(BaseModel): #defining a class UserResponse that inherits from
     email: str #defining an email attribute of type string
     role: str #defining a role attribute of type string
     created_at: datetime #defining a created_at attribute of type datetime
+
+    model_config = ConfigDict(from_attributes=True) #defining a model_config attribute that specifies the configuration for the Pydantic model, in this case, it allows the model to be created from attributes of an object

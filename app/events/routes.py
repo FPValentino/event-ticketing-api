@@ -24,7 +24,7 @@ def create_event(event: EventCreate, db: Session = Depends(get_db), current_user
 
     db.add(new_event) #adds the new event to the database session
     db.commit() #commits the changes to the database
-    db.refresh(new_event) #refreshes the new event object to get the updated data from
+    db.refresh(new_event) #refreshes the new event object to get the updated data
 
     return new_event #returns the new event object as the response
 
